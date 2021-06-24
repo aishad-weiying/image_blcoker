@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: image-blocker-webhook
+  name: image-blocker-webhook
+  namespace: default
+spec:
+  ports:
+    - name: https
+      port: 9527
+      targetPort: 9527
+      protocol: "TCP"
+  selector:
+    app: image-blocker-webhook

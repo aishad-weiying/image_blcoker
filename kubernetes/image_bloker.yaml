@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-blocker-webhook
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: image-blocker-webhook
+  template:
+    metadata:
+      labels:
+        app: image-blocker-webhook
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+      containers:
+        - name: image-blocker-webhook
+          imagePullPolicy: IfNotPresent
+          image: xxxxxxx
+          volumeMounts:
+            - name: tls
+              mountPath: /etc/admission-controller/tls
+      volumes:
+        - name: tls
+          secret:
+            secretName: tls-image-blocker-webhook
